@@ -1,0 +1,30 @@
+version: "3"
+
+x-defaults: &x-defaults
+  image: waffles-bot:latest
+  container_name: waffles-bot
+  hostname: waffles-bot
+  build:
+    context: .
+  restart: unless-stopped
+  networks:
+    - default_bridge
+
+services:
+  waffles-bot-dev:
+    <<: *x-defaults
+    environment:
+      - TZ=Europe/Berlin
+      - LANG=en_US.UTF-8
+      - ENV=dev
+
+  waffles-bot-prod:
+    <<: *x-defaults
+    environment:
+      - TZ=Europe/Berlin
+      - LANG=en_US.UTF-8
+      - ENV=prod
+
+networks:
+  default_bridge:
+    external: true
